@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://serkanylmz.com.tr/sitemap.xml

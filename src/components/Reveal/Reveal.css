@@ -1,0 +1,58 @@
+.reveal {
+  display: block;
+}
+
+.reveal--mask {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  overflow: hidden;
+}
+
+.reveal--mask .reveal__inner {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s var(--ease-reveal);
+}
+
+.reveal--up .reveal__inner {
+  display: block;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+}
+
+.reveal--left .reveal__inner {
+  display: block;
+  opacity: 0;
+  transform: translateX(-36px);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+}
+
+.reveal--right .reveal__inner {
+  display: block;
+  opacity: 0;
+  transform: translateX(36px);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+}
+
+.reveal.is-visible .reveal__inner,
+.reveal.is-visible.reveal--mask .reveal__inner,
+.reveal.is-visible.reveal--up .reveal__inner,
+.reveal.is-visible.reveal--left .reveal__inner,
+.reveal.is-visible.reveal--right .reveal__inner {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .reveal__inner {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,56 @@
+.experience__title {
+  margin-bottom: 4rem;
+}
+
+.experience__card {
+  padding: 2.5rem;
+  border-radius: var(--radius-md);
+  max-width: 52rem;
+}
+
+.experience__meta {
+  margin-bottom: 1.5rem;
+}
+
+.experience__period {
+  margin: 0 0 0.75rem;
+  font: var(--label-mono);
+  letter-spacing: var(--tracking-mono);
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.experience__role {
+  margin: 0 0 0.5rem;
+  font: var(--headline-md);
+  letter-spacing: var(--tracking-headline-md);
+  color: var(--on-surface);
+}
+
+.experience__company {
+  margin: 0;
+  font: var(--body-lg);
+  color: var(--on-surface-variant);
+}
+
+.experience__desc {
+  margin: 0 0 1.5rem;
+  font: var(--body-md);
+  color: var(--on-surface-variant);
+  max-width: 58ch;
+}
+
+.experience__points {
+  margin: 0;
+  padding-left: 1.15rem;
+  font: var(--body-md);
+  color: var(--on-surface-variant);
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .experience__card {
+    padding: 3rem;
+  }
+}

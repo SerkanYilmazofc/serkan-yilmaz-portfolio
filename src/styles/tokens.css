@@ -1,0 +1,89 @@
+:root {
+  /* Surfaces — Obsidian Noir */
+  --surface: #141313;
+  --surface-dim: #141313;
+  --surface-bright: #3a3939;
+  --surface-container-lowest: #0e0e0e;
+  --surface-container-low: #1c1b1b;
+  --surface-container: #201f1f;
+  --surface-container-high: #2b2a2a;
+  --surface-container-highest: #353434;
+  --surface-variant: #353434;
+  --background: #050505;
+  --on-background: #e5e2e1;
+  --on-surface: #e5e2e1;
+  --on-surface-variant: #c4c7c7;
+  --primary: #c9c6c5;
+  --on-primary: #313030;
+  --primary-container: #050505;
+  --outline: #8e9192;
+  --outline-variant: #444748;
+  --tertiary: #c9c6c5;
+  --on-tertiary-container: #797777;
+
+  /* Accents */
+  --accent-blue: #3b82f6;
+  --accent-violet: #8b5cf6;
+  --electric-blue: rgba(163, 222, 254, 0.15);
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+
+  /* Glass */
+  --glass-bg: rgba(32, 31, 31, 0.4);
+  --glass-nav: rgba(32, 31, 31, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Typography */
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --display-xl: 800 120px/110px var(--font-sans);
+  --display-xl-mobile: 800 56px/60px var(--font-sans);
+  --headline-lg: 700 64px/72px var(--font-sans);
+  --headline-md: 600 32px/40px var(--font-sans);
+  --body-lg: 400 18px/28px var(--font-sans);
+  --body-md: 400 16px/24px var(--font-sans);
+  --label-mono: 500 12px/16px var(--font-mono);
+
+  --tracking-display: -0.05em;
+  --tracking-display-mobile: -0.04em;
+  --tracking-headline-lg: -0.03em;
+  --tracking-headline-md: -0.02em;
+  --tracking-mono: 0.1em;
+
+  /* Spacing */
+  --unit: 8px;
+  --gutter: 24px;
+  --margin-mobile: 20px;
+  --section-gap: 160px;
+  --container-max: 1440px;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Motion */
+  --ease-reveal: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-out-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-gap: 100px;
+    --headline-lg: 700 48px/56px var(--font-sans);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-gap: 80px;
+    --headline-lg: 700 36px/44px var(--font-sans);
+    --headline-md: 600 24px/32px var(--font-sans);
+    --body-lg: 400 16px/26px var(--font-sans);
+  }
+}
