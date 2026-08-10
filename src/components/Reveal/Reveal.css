@@ -3,13 +3,21 @@
 }
 
 .reveal--mask {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   overflow: hidden;
+  /* Türkçe İ/Ğ/Ş gibi üst işaretlerin kesilmesini engelle */
+  padding-top: 0.18em;
+  margin-top: -0.18em;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.reveal--mask.is-visible {
+  overflow: visible;
 }
 
 .reveal--mask .reveal__inner {
   display: block;
-  transform: translateY(110%);
+  transform: translateY(115%);
   transition: transform 1s var(--ease-reveal);
 }
 

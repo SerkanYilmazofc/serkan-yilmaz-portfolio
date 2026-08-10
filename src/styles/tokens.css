@@ -39,7 +39,7 @@
 
   --display-xl: 800 120px/110px var(--font-sans);
   --display-xl-mobile: 800 56px/60px var(--font-sans);
-  --headline-lg: 700 64px/72px var(--font-sans);
+  --headline-lg: 700 64px/1.2 var(--font-sans);
   --headline-md: 600 32px/40px var(--font-sans);
   --body-lg: 400 18px/28px var(--font-sans);
   --body-md: 400 16px/24px var(--font-sans);
@@ -75,14 +75,14 @@
 @media (max-width: 1024px) {
   :root {
     --section-gap: 100px;
-    --headline-lg: 700 48px/56px var(--font-sans);
+    --headline-lg: 700 48px/1.2 var(--font-sans);
   }
 }
 
 @media (max-width: 768px) {
   :root {
     --section-gap: 80px;
-    --headline-lg: 700 36px/44px var(--font-sans);
+    --headline-lg: 700 36px/1.25 var(--font-sans);
     --headline-md: 600 24px/32px var(--font-sans);
     --body-lg: 400 16px/26px var(--font-sans);
   }

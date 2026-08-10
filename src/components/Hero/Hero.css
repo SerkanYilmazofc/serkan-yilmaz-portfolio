@@ -22,7 +22,14 @@
 .hero__mask {
   display: block;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  padding-top: 0.12em;
+  margin-top: -0.12em;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.hero__content.is-ready .hero__mask {
+  overflow: visible;
 }
 
 .hero__reveal {

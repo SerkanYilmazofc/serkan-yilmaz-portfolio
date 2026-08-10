@@ -103,6 +103,8 @@ button:focus-visible {
   margin: 0;
   font: var(--headline-lg);
   letter-spacing: var(--tracking-headline-lg);
+  line-height: 1.2;
+  overflow: visible;
   color: var(--on-surface);
 }
 

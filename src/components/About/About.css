@@ -1,5 +1,8 @@
 .about__title {
   margin-bottom: 4rem;
+  line-height: 1.25;
+  overflow: visible;
+  padding-top: 0.12em;
 }
 
 .about__grid {
