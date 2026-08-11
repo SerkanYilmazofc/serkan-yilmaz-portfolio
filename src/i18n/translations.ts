@@ -27,7 +27,7 @@ export const translations = {
     },
     about: {
       title: "BEN KİMİM?",
-      body: "Ben Serkan Yılmaz. Şu anda A8 Bilişim bünyesinde yazılım destek ve ön muhasebe süreçlerinde görev alıyorum. Yaklaşık 1 yıllık iş deneyimim boyunca ERP sistemleri, kullanıcı desteği ve iş süreçlerinde karşılaşılan yazılımsal problemlerin çözümü üzerine deneyim kazanıyorum. Özellikle Netsim ERP üzerinde kullanıcı destek süreçlerinde görev alıyor; kullanıcıların karşılaştığı sorunları analiz etme, çözüm üretme ve ERP süreçlerinin sağlıklı şekilde ilerlemesine destek olma konularında çalışıyorum. Profesyonel çalışmalarımın yanında yazılım geliştirmeye de devam ediyor; yeni teknolojiler öğrenmek ve öğrendiklerimi gerçek problemlere uygulamak üzerine kendimi geliştirmeyi sürdürüyorum.",
+      body: "Ben Serkan Yılmaz. Şu anda A8 Bilişim bünyesinde yazılım destek ve ön muhasebe süreçlerinde görev alıyorum. Yaklaşık 1 yıllık iş deneyimim boyunca ERP sistemleri, kullanıcı desteği ve iş süreçlerinde karşılaşılan yazılımsal problemlerin çözümü üzerine deneyim kazanıyorum. Özellikle Netsim ERP üzerinde kullanıcı destek süreçlerinde görev alıyor; kullanıcıların karşılaştığı sorunları analiz etme, çözüm üretme ve ERP süreçlerinin sağlıklı şekilde ilerlemesine destek olma konularında çalışıyorum. Profesyonel çalışmalarımın yanında yazılım geliştirmeye de devam ediyorum. Yeni teknolojiler öğrenmek, farklı yazılım çözümleri geliştirmek ve öğrendiklerimi gerçek problemlere uygulamak üzerine kendimi geliştirmeyi sürdürüyorum.",
       stats: [
         { value: "~1", label: "Yıl Deneyim" },
         { value: "ERP", label: "Destek" },
@@ -46,7 +46,9 @@ export const translations = {
         "ERP kullanıcı desteği",
         "Netsim ERP destek süreçleri",
         "Kullanıcı taleplerinin değerlendirilmesi",
+        "ERP sistemlerinin kullanımına yönelik destek",
         "Ön muhasebe süreçlerine destek",
+        "Yazılım ve iş süreçleri arasındaki problemlerin incelenmesi",
       ],
     },
     services: {
@@ -126,7 +128,7 @@ export const translations = {
     },
     about: {
       title: "WHO AM I?",
-      body: "I'm Serkan Yılmaz. I currently work at A8 Bilişim in software support and pre-accounting. Over about a year of professional experience, I've been building skills around ERP systems, user support, and resolving software-related issues in business processes. I take part in Netsim ERP user support — analyzing problems, helping find solutions, and supporting healthy ERP workflows. Alongside my day-to-day work, I continue learning software development and applying what I learn to real problems.",
+      body: "I'm Serkan Yılmaz. I currently work at A8 Bilişim in software support and pre-accounting. Over about a year of professional experience, I've been building skills around ERP systems, user support, and resolving software-related issues in business processes. I take part in Netsim ERP user support — analyzing problems, helping find solutions, and supporting healthy ERP workflows. Alongside my professional work, I continue software development. I keep learning new technologies, building different software solutions, and applying what I learn to real problems.",
       stats: [
         { value: "~1", label: "Year Experience" },
         { value: "ERP", label: "Support" },
@@ -145,7 +147,9 @@ export const translations = {
         "ERP user support",
         "Netsim ERP support processes",
         "Evaluating user requests",
+        "Supporting ERP system usage",
         "Supporting pre-accounting workflows",
+        "Reviewing issues between software and business processes",
       ],
     },
     services: {

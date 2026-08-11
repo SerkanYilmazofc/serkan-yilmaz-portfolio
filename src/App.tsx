@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { LanguageProvider } from "./i18n/LanguageProvider";
 import { Navigation } from "./components/Navigation/Navigation";
 import { Hero } from "./components/Hero/Hero";
@@ -11,9 +12,12 @@ import { ShaderBackground } from "./components/ShaderBackground/ShaderBackground
 import { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
 import { CustomCursor } from "./components/CustomCursor/CustomCursor";
 import { ScrollProgress } from "./components/ScrollProgress/ScrollProgress";
+import { SecretMaze } from "./components/SecretMaze/SecretMaze";
 import "./styles/tokens.css";
 
 function App() {
+  const [mazeOpen, setMazeOpen] = useState(false);
+
   return (
     <LanguageProvider>
       <a className="skip-link" href="#top">
@@ -26,13 +30,14 @@ function App() {
       <Navigation />
       <main>
         <Hero />
-        <About />
+        <About onOpenSecret={() => setMazeOpen(true)} />
         <Services />
         <Experience />
         <Marquee />
         <Contact />
       </main>
       <Footer />
+      <SecretMaze open={mazeOpen} onClose={() => setMazeOpen(false)} />
     </LanguageProvider>
   );
 }

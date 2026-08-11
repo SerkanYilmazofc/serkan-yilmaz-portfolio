@@ -3,6 +3,10 @@ import { useLanguage } from "../../i18n/useLanguage";
 import { Reveal } from "../Reveal/Reveal";
 import "./About.css";
 
+type Props = {
+  onOpenSecret?: () => void;
+};
+
 function AnimatedStat({ value, label, delay }: { value: string; label: string; delay: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
@@ -58,14 +62,24 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
   );
 }
 
-export function About() {
+export function About({ onOpenSecret }: Props) {
   const { t } = useLanguage();
 
   return (
     <section className="about section" id="about">
-      <Reveal as="h2" className="about__title section-title">
-        {t.about.title}
-      </Reveal>
+      <div className="about__title-wrap">
+        <Reveal as="h2" className="about__title section-title">
+          {t.about.title}
+        </Reveal>
+        <button
+          type="button"
+          className="about__secret"
+          data-cursor="hover"
+          aria-label=" "
+          tabIndex={-1}
+          onClick={() => onOpenSecret?.()}
+        />
+      </div>
 
       <div className="about__grid">
         <div className="about__copy">

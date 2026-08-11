@@ -5,6 +5,39 @@
   padding-top: 0.12em;
 }
 
+.about__title-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 0;
+}
+
+.about__title-wrap .about__title {
+  margin-bottom: 4rem;
+}
+
+/* Invisible easter-egg hotspot — only revealed via custom cursor grow */
+.about__secret {
+  position: absolute;
+  right: 0.15em;
+  top: 0.35em;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: none;
+  z-index: 2;
+}
+
+.about__secret:focus {
+  outline: none;
+}
+
+.about__secret:focus-visible {
+  outline: none;
+}
+
 .about__grid {
   display: grid;
   gap: var(--gutter);
