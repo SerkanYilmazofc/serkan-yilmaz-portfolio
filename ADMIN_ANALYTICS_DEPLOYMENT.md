@@ -12,10 +12,17 @@ GitHub Actions `main` push sonrası `deploy` branch’ine şunları yazar:
 
 Document root: genelde `kisisel.serkanylmz.com.tr` (veya apex) klasörü — `deploy` branch içeriği.
 
-## 1) MySQL
+## HTTP 500 checklist (cPanel)
 
-1. cPanel → MySQL Databases: database + user oluştur, tüm yetkileri ver.
-2. phpMyAdmin veya CLI ile `api/schema.sql` içeriğini çalıştır.
+1. Tarayıcıda aç: `https://SENIN_DOMAIN/api/ping.php`
+   - JSON gelmeli. `php_ok: false` ise **MultiPHP → 8.1 veya 8.2** seç.
+   - `env_file: false` ise `api/.env` yok / yanlış yerde.
+   - `pdo_mysql: false` ise hosting’e PDO MySQL açtır.
+2. `https://SENIN_DOMAIN/api/health` → `ok: true` olmalı.
+3. MySQL database + user oluştur, `api/schema.sql` import et.
+4. `api/.env` doldur (`DB_*`, `APP_KEY`, `DEFAULT_ADMIN_*`, `ALLOWED_ORIGIN`).
+5. Geçici teşhis: `.env` içinde `APP_DEBUG=true` → login/API hata mesajı JSON’da görünür; bitince `false`.
+6. Hâlâ 500: cPanel → Errors / Metrics → Errors (son PHP fatal log).
 
 ## 2) `.env`
 

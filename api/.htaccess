@@ -1,15 +1,19 @@
-# Analytics API — Apache rules
-Options -Indexes
+# Analytics API — Apache rules (cPanel-safe)
 <IfModule mod_authz_core.c>
   Require all granted
 </IfModule>
 
-# Block sensitive files
-<FilesMatch "^\.env|schema\.sql|\.git">
+<Files ".env">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
-</FilesMatch>
+</Files>
+
+<Files "schema.sql">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</Files>
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
@@ -18,7 +22,7 @@ Options -Indexes
   # Deny direct access to lib/ and scripts/
   RewriteRule ^(lib|scripts)/ - [F,L]
 
-  # Front controller
+  # Front controller (existing files like ping.php still served directly)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)$ index.php?path=$1 [QSA,L]
 </IfModule>

@@ -1,6 +1,18 @@
 <?php
 declare(strict_types=1);
 
+// Fail with readable JSON if PHP is too old (never / mixed need 8.1+)
+if (PHP_VERSION_ID < 80100) {
+    http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode([
+        'ok' => false,
+        'error' => 'PHP 8.1+ required. Set MultiPHP to 8.1 or 8.2 in cPanel.',
+        'php' => PHP_VERSION,
+    ]);
+    exit;
+}
+
 require_once __DIR__ . '/lib/bootstrap.php';
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
@@ -17,14 +29,18 @@ try {
     Response::error(
         $debug ? $e->getMessage() : 'Server error',
         500,
-        $debug ? ['trace' => $e->getMessage()] : []
+        $debug ? ['exception' => $e->getMessage()] : []
     );
 }
 
 function route(string $method, string $path): void
 {
     if ($path === '' || $path === 'health') {
-        Response::ok(['service' => 'serkan-analytics-api', 'time' => gmdate('c')]);
+        Response::ok([
+            'service' => 'serkan-analytics-api',
+            'time' => gmdate('c'),
+            'php' => PHP_VERSION,
+        ]);
     }
 
     // Public analytics (fail-soft wrappers)
