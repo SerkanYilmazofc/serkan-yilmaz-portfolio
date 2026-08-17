@@ -25,3 +25,12 @@ dist-ssr
 
 # Design reference / local
 _stitch_design
+
+# Secrets
+api/.env
+.env
+.env.*
+!api/.env.example
+
+# Local analytics store (dev API)
+api/.data/

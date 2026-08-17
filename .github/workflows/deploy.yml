@@ -35,15 +35,37 @@ jobs:
         run: |
           mkdir -p /tmp/deploy-site
           cp -R dist/. /tmp/deploy-site/
+          # PHP analytics API (copy without secrets)
+          mkdir -p /tmp/deploy-site/api
+          cp -R api/. /tmp/deploy-site/api/
+          rm -f /tmp/deploy-site/api/.env
+          # Root SPA + API hardening
           cat > /tmp/deploy-site/.htaccess <<'EOF'
           Options -Indexes
+
+          <IfModule mod_authz_core.c>
+            <FilesMatch "^\.env">
+              Require all denied
+            </FilesMatch>
+          </IfModule>
+
           <IfModule mod_rewrite.c>
             RewriteEngine On
             RewriteBase /
+
+            # Never send /api to the SPA
+            RewriteRule ^api/ - [L]
+
+            # SPA fallback
             RewriteRule ^index\.html$ - [L]
             RewriteCond %{REQUEST_FILENAME} !-f
             RewriteCond %{REQUEST_FILENAME} !-d
             RewriteRule . /index.html [L]
+          </IfModule>
+
+          <IfModule mod_headers.c>
+            Header set X-Content-Type-Options "nosniff"
+            Header set Referrer-Policy "strict-origin-when-cross-origin"
           </IfModule>
           EOF
 
@@ -54,4 +76,4 @@ jobs:
           publish_dir: /tmp/deploy-site
           publish_branch: deploy
           force_orphan: true
-          commit_message: "Deploy production build"
+          commit_message: "Deploy production build + API"
