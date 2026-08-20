@@ -28,6 +28,12 @@
   --text-secondary: #a1a1aa;
   --text-muted: #52525b;
 
+  /* Buttons */
+  --btn-from: #2563eb;
+  --btn-to: #7c3aed;
+  --btn-glow: rgba(59, 130, 246, 0.22);
+  --btn-text: #ffffff;
+
   /* Glass */
   --glass-bg: rgba(32, 31, 31, 0.4);
   --glass-nav: rgba(32, 31, 31, 0.6);

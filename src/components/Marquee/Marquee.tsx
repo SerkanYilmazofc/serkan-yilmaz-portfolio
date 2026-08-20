@@ -3,7 +3,7 @@ import "./Marquee.css";
 
 export function Marquee() {
   const { t } = useLanguage();
-  const text = t.marquee.repeat(2);
+  const text = `${t.marquee} • `;
 
   return (
     <section className="marquee" aria-hidden="true">

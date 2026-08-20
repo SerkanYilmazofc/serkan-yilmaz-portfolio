@@ -1,0 +1,338 @@
+/* Adapted from CodePen / CodeFronts full-circle wheel (ccm-11) */
+
+.theme-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  will-change: opacity, filter, transform;
+  --brand: #3b82f6;
+  --gate-bg-inner: #1a2744;
+  --gate-bg-outer: #050508;
+  --gate-face-inner: #243356;
+  --gate-face-outer: #0c101c;
+  --gate-ink: #e5e2e1;
+  --gate-muted: #8b9bb8;
+  --gate-on-accent: #071018;
+  --gate-stop-bg: rgba(14, 20, 36, 0.92);
+  --gate-stop-border: rgba(59, 130, 246, 0.4);
+  --gate-stop-text: #b8c7e0;
+  --gate-wheel-border: rgba(59, 130, 246, 0.28);
+}
+
+.ccm-11,
+.ccm-11 *,
+.ccm-11 *::before,
+.ccm-11 *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ccm-11 {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans, "Segoe UI", system-ui, sans-serif);
+  color: var(--gate-ink);
+  background: var(--gate-bg-outer);
+  transition: background 0.55s ease, color 0.35s ease;
+}
+
+.ccm-11__stage {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 28px;
+  background: radial-gradient(
+    circle at 50% 28%,
+    var(--gate-bg-inner) 0%,
+    var(--gate-bg-outer) 72%
+  );
+  overflow: hidden;
+  transition: background 0.55s ease;
+}
+
+.ccm-11__stage::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at 50% 40%,
+    color-mix(in srgb, var(--brand) 18%, transparent),
+    transparent 55%
+  );
+  pointer-events: none;
+  transition: background 0.55s ease;
+}
+
+.ccm-11__eyebrow {
+  position: absolute;
+  top: clamp(20px, 4vh, 40px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 4;
+  font: 500 12px/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gate-muted);
+  transition: color 0.35s ease;
+}
+
+.ccm-11__title {
+  position: absolute;
+  top: clamp(44px, 7vh, 72px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 4;
+  font: 700 clamp(22px, 4vw, 36px) / 1.1 var(--font-sans, system-ui, sans-serif);
+  letter-spacing: -0.03em;
+  color: var(--gate-ink);
+  text-align: center;
+  transition: color 0.35s ease;
+}
+
+.ccm-11__pointer {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 196px);
+  translate: -50% 0;
+  width: 0;
+  height: 0;
+  border: 9px solid transparent;
+  border-top: 13px solid var(--brand);
+  filter: drop-shadow(0 2px 8px color-mix(in srgb, var(--brand) 55%, transparent));
+  z-index: 3;
+  transition: border-top-color 0.35s ease, filter 0.35s ease;
+}
+
+.ccm-11__machine {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  display: grid;
+  place-items: center;
+  margin-top: 36px;
+  z-index: 2;
+}
+
+.ccm-11__wheel {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  border-radius: 50%;
+  border: 1px solid var(--gate-wheel-border);
+  rotate: var(--rot, 0deg);
+  transition:
+    rotate 0.7s cubic-bezier(0.3, 1, 0.35, 1),
+    border-color 0.45s ease;
+}
+
+.ccm-11__wheel li {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  --a: calc((360deg / var(--n)) * var(--i) - 90deg);
+  translate: calc(cos(var(--a)) * 170px) calc(sin(var(--a)) * 170px);
+}
+
+.ccm-11__stop {
+  pointer-events: auto;
+  border: 1px solid var(--stop-border, var(--gate-stop-border));
+  border-radius: 999px;
+  padding: 9px 16px;
+  background: var(--stop-bg, var(--gate-stop-bg));
+  color: var(--stop-text, var(--gate-stop-text));
+  font: 600 13px/1 var(--font-sans, "Segoe UI", system-ui, sans-serif);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  rotate: calc(var(--rot, 0deg) * -1);
+  transition:
+    rotate 0.7s cubic-bezier(0.3, 1, 0.35, 1),
+    background 0.3s,
+    color 0.3s,
+    border-color 0.3s,
+    scale 0.25s,
+    box-shadow 0.3s;
+}
+
+.ccm-11__stop:hover {
+  border-color: var(--stop-accent, var(--brand));
+  color: #fff;
+  box-shadow: 0 0 18px -6px color-mix(in srgb, var(--stop-accent, var(--brand)) 55%, transparent);
+}
+
+.ccm-11__stop:focus-visible {
+  outline: 3px solid var(--stop-accent, var(--brand));
+  outline-offset: 3px;
+}
+
+.ccm-11__stop.is-active {
+  background: var(--stop-accent, var(--brand));
+  border-color: var(--stop-accent, var(--brand));
+  color: var(--stop-on, var(--gate-on-accent));
+  scale: 1.12;
+  box-shadow: 0 0 28px -4px color-mix(in srgb, var(--stop-accent, var(--brand)) 75%, transparent);
+}
+
+.ccm-11__face {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  place-content: center;
+  text-align: center;
+  background: radial-gradient(
+    circle at 38% 30%,
+    var(--gate-face-inner),
+    var(--gate-face-outer)
+  );
+  border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 50px -20px rgba(0, 0, 0, 0.8),
+    0 0 40px -12px color-mix(in srgb, var(--brand) 35%, transparent);
+  transition:
+    background 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.ccm-11__face em {
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gate-muted);
+  transition: color 0.35s ease;
+}
+
+.ccm-11__current {
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  color: var(--gate-ink);
+  transition: color 0.35s ease;
+}
+
+.ccm-11__tagline {
+  font: 500 11px/1.3 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gate-muted);
+  max-width: 16ch;
+  transition: color 0.35s ease;
+}
+
+.ccm-11__steer {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ccm-11__steer button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--brand) 40%, transparent);
+  background: color-mix(in srgb, var(--gate-face-outer) 88%, var(--brand));
+  color: var(--gate-ink);
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    border-color 0.25s,
+    color 0.25s,
+    box-shadow 0.25s;
+}
+
+.ccm-11__steer button:hover {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--gate-on-accent);
+  box-shadow: 0 0 16px -4px color-mix(in srgb, var(--brand) 70%, transparent);
+}
+
+.ccm-11__steer button:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.ccm-11__live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ccm-11__hint {
+  position: absolute;
+  bottom: clamp(20px, 4vh, 40px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 4;
+  font: 500 12px/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gate-muted);
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.35s ease;
+}
+
+@media (max-width: 420px) {
+  .ccm-11__machine {
+    width: 300px;
+    height: 300px;
+  }
+
+  .ccm-11__wheel li {
+    translate: calc(cos(var(--a)) * 148px) calc(sin(var(--a)) * 148px);
+  }
+
+  .ccm-11__pointer {
+    top: calc(50% - 178px);
+  }
+
+  .ccm-11__stop {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .ccm-11__face {
+    width: 168px;
+    height: 168px;
+  }
+
+  .ccm-11__current {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ccm-11 *,
+  .ccm-11,
+  .ccm-11__stage,
+  .ccm-11__stage::before {
+    transition-duration: 0.01s !important;
+  }
+
+  .theme-gate {
+    transition: none;
+  }
+}

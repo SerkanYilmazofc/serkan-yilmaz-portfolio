@@ -14,15 +14,21 @@ import { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
 import { CustomCursor } from "./components/CustomCursor/CustomCursor";
 import { ScrollProgress } from "./components/ScrollProgress/ScrollProgress";
 import { SecretMaze } from "./components/SecretMaze/SecretMaze";
+import { SecretAirHockey } from "./components/SecretAirHockey/SecretAirHockey";
+import { ThemeGate } from "./components/ThemeGate/ThemeGate";
 import { AdminLogin } from "./admin/AdminLogin";
 import { AdminAnalytics } from "./admin/AdminAnalytics";
 import { startAnalytics } from "./analytics/tracker";
+import { applyTheme, readStoredTheme } from "./theme/themes";
 import "./styles/tokens.css";
+import "./styles/themes.css";
 
 function Portfolio() {
   const [mazeOpen, setMazeOpen] = useState(false);
+  const [hockeyOpen, setHockeyOpen] = useState(false);
 
   useEffect(() => {
+    applyTheme(readStoredTheme());
     startAnalytics();
   }, []);
 
@@ -31,6 +37,7 @@ function Portfolio() {
       <a className="skip-link" href="#top">
         İçeriğe geç
       </a>
+      <ThemeGate />
       <ScrollProgress />
       <NoiseOverlay />
       <CustomCursor />
@@ -38,7 +45,10 @@ function Portfolio() {
       <Navigation />
       <main>
         <Hero />
-        <About onOpenSecret={() => setMazeOpen(true)} />
+        <About
+          onOpenSecret={() => setMazeOpen(true)}
+          onOpenGame={() => setHockeyOpen(true)}
+        />
         <Services />
         <Experience />
         <Marquee />
@@ -46,6 +56,7 @@ function Portfolio() {
       </main>
       <Footer />
       <SecretMaze open={mazeOpen} onClose={() => setMazeOpen(false)} />
+      <SecretAirHockey open={hockeyOpen} onClose={() => setHockeyOpen(false)} />
     </LanguageProvider>
   );
 }

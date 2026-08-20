@@ -147,19 +147,19 @@ button:focus-visible {
 }
 
 .btn--primary {
-  color: #fff;
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  color: var(--btn-text);
+  background: linear-gradient(135deg, var(--btn-from) 0%, var(--btn-to) 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.35),
-    0 0 40px rgba(59, 130, 246, 0.18);
+    0 0 40px var(--btn-glow);
 }
 
 .btn--primary:hover {
-  border-color: rgba(201, 198, 197, 0.5);
+  border-color: color-mix(in srgb, var(--btn-from) 55%, white);
   box-shadow:
     0 14px 36px rgba(0, 0, 0, 0.4),
-    0 0 40px rgba(59, 130, 246, 0.15);
+    0 0 48px var(--btn-glow);
 }
 
 .btn--primary svg {

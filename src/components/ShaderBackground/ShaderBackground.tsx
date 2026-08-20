@@ -43,6 +43,9 @@ export function ShaderBackground() {
       uniform float u_time;
       uniform vec2 u_resolution;
       uniform vec2 u_mouse;
+      uniform vec3 u_c1;
+      uniform vec3 u_c2;
+      uniform vec3 u_c3;
       varying vec2 v_texCoord;
 
       void main() {
@@ -55,9 +58,9 @@ export function ShaderBackground() {
         float dist = distance(uv, mouse);
         float glow = smoothstep(0.4, 0.0, dist) * 0.3;
 
-        vec3 color1 = vec3(0.02, 0.02, 0.05);
-        vec3 color2 = vec3(0.1, 0.2, 0.5);
-        vec3 color3 = vec3(0.3, 0.1, 0.5);
+        vec3 color1 = u_c1;
+        vec3 color2 = u_c2;
+        vec3 color3 = u_c3;
 
         vec3 finalColor = mix(color1, color2, noise * 0.5 + 0.5);
         finalColor = mix(finalColor, color3, glow);
@@ -101,6 +104,36 @@ export function ShaderBackground() {
     const uTime = gl.getUniformLocation(prog, "u_time");
     const uRes = gl.getUniformLocation(prog, "u_resolution");
     const uMouse = gl.getUniformLocation(prog, "u_mouse");
+    const uC1 = gl.getUniformLocation(prog, "u_c1");
+    const uC2 = gl.getUniformLocation(prog, "u_c2");
+    const uC3 = gl.getUniformLocation(prog, "u_c3");
+
+    const readThemeColors = () => {
+      const cs = getComputedStyle(document.documentElement);
+      const parse = (name: string, fallback: [number, number, number]) => {
+        const raw = cs.getPropertyValue(name).trim();
+        if (!raw) return fallback;
+        const parts = raw.split(",").map((x) => Number(x.trim()));
+        if (parts.length >= 3 && parts.every((n) => Number.isFinite(n))) {
+          return [parts[0]!, parts[1]!, parts[2]!] as [number, number, number];
+        }
+        return fallback;
+      };
+      return {
+        c1: parse("--theme-shader-a", [0.02, 0.02, 0.05]),
+        c2: parse("--theme-shader-b", [0.1, 0.2, 0.5]),
+        c3: parse("--theme-shader-c", [0.3, 0.1, 0.5]),
+      };
+    };
+
+    let themeColors = readThemeColors();
+    const themeObserver = new MutationObserver(() => {
+      themeColors = readThemeColors();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
     let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
     let raf = 0;
@@ -130,6 +163,9 @@ export function ShaderBackground() {
       if (uTime) gl.uniform1f(uTime, t * 0.001);
       if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
       if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+      if (uC1) gl.uniform3f(uC1, themeColors.c1[0], themeColors.c1[1], themeColors.c1[2]);
+      if (uC2) gl.uniform3f(uC2, themeColors.c2[0], themeColors.c2[1], themeColors.c2[2]);
+      if (uC3) gl.uniform3f(uC3, themeColors.c3[0], themeColors.c3[1], themeColors.c3[2]);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       raf = requestAnimationFrame(render);
     };
@@ -141,6 +177,7 @@ export function ShaderBackground() {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("visibilitychange", onVisibility);
+      themeObserver.disconnect();
       ro.disconnect();
     };
   }, [reduced]);

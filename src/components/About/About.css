@@ -79,6 +79,19 @@
   transform: translate3d(0, 0, 0);
 }
 
+button.about-stat {
+  appearance: none;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.about-stat--secret:focus-visible {
+  outline: none;
+  border-color: rgba(163, 222, 254, 0.35);
+}
+
 .about-stat:hover {
   border-color: rgba(201, 198, 197, 0.3);
 }

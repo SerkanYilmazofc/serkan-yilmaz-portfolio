@@ -1,14 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type Ref } from "react";
 import { useLanguage } from "../../i18n/useLanguage";
 import { Reveal } from "../Reveal/Reveal";
 import "./About.css";
 
 type Props = {
   onOpenSecret?: () => void;
+  onOpenGame?: () => void;
 };
 
-function AnimatedStat({ value, label, delay }: { value: string; label: string; delay: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+function AnimatedStat({
+  value,
+  label,
+  delay,
+  onActivate,
+}: {
+  value: string;
+  label: string;
+  delay: number;
+  onActivate?: () => void;
+}) {
+  const ref = useRef<HTMLDivElement | HTMLButtonElement>(null);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -49,20 +60,37 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
   }, [shown, numeric]);
 
   const display = numeric ? `${count}${value.slice(numeric[1].length)}` : value;
+  const className = `about-stat glass-panel${shown ? " is-in" : ""}${
+    onActivate ? " about-stat--secret" : ""
+  }`;
+  const style = { transitionDelay: `${delay}ms` };
+
+  if (onActivate) {
+    return (
+      <button
+        type="button"
+        ref={ref as Ref<HTMLButtonElement>}
+        className={className}
+        style={style}
+        data-cursor="hover"
+        onClick={onActivate}
+        aria-label={label}
+      >
+        <div className="about-stat__value">{display}</div>
+        <div className="about-stat__label">{label}</div>
+      </button>
+    );
+  }
 
   return (
-    <div
-      ref={ref}
-      className={`about-stat glass-panel${shown ? " is-in" : ""}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
+    <div ref={ref as Ref<HTMLDivElement>} className={className} style={style}>
       <div className="about-stat__value">{display}</div>
       <div className="about-stat__label">{label}</div>
     </div>
   );
 }
 
-export function About({ onOpenSecret }: Props) {
+export function About({ onOpenSecret, onOpenGame }: Props) {
   const { t } = useLanguage();
 
   return (
@@ -89,14 +117,21 @@ export function About({ onOpenSecret }: Props) {
         </div>
 
         <div className="about__stats">
-          {t.about.stats.map((stat, i) => (
-            <AnimatedStat
-              key={stat.label}
-              value={stat.value}
-              label={stat.label}
-              delay={i * 100}
-            />
-          ))}
+          {t.about.stats.map((stat, i) => {
+            const isLearning =
+              stat.value === "∞" ||
+              stat.label.toLocaleLowerCase("tr-TR") === "öğrenme" ||
+              stat.label.toLowerCase() === "learning";
+            return (
+              <AnimatedStat
+                key={stat.label}
+                value={stat.value}
+                label={stat.label}
+                delay={i * 100}
+                onActivate={isLearning ? onOpenGame : undefined}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
